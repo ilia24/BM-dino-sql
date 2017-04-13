@@ -5,19 +5,21 @@ We want to open up our own version of Jurassic Park, but this time only with din
   SELECT * FROM dinos WHERE period='Jurassic';
 
 Jurassic Park was a huge success for us. Now we want to open up a sequel park: Cretaceous Park. This time though, we're a little more organized, and we want to know how much space all these dinosaurs are going to take up. Find the total sum length of all the dinosaurs from the Cretaceous period.
-  SELECT SUM(char_length(name)) as length FROM dinos ;
+  SELECT SUM(char_length(name)) as length FROM dinos;
 
 Great news! Our board of investors recently secured us a large island where we can put all the dinosaurs from both Jurassic Park and Cretaceous Park. This new park will be called Juraceous Park, which according to our focus groups really rolls off the tongue. Find all the dinosaurs from either the Jurassic OR Cretaceous periods, and order them by their species name alphabetically.
-
+SELECT name FROM dinos WHERE period='Jurassic' ORDER BY name ASC;
+SELECT name FROM dinos WHERE period='Cretaceous' ORDER BY name ASC;
 
 Saurischians are the "lizard hipped" order of dinosaurs, and one of the two main branches. All carnivorous dinosaurs are Saurischians, but not all Saurischians are carnivorous. Find all the dinosaurs from the t_order Saurischia that are Herbivorous.
-
+SELECT * FROM dinos WHERE t_order='Saurischia' AND diet='Herbivorous';
 
 
 Dinosaur names are hard to remember. Find the shortest dinosaur, and rename it Shortie.
-
+UPDATE dinos SET name = 'shortie' WHERE id = (SELECT id FROM dinos ORDER BY length ASC LIMIT 1);
 
 It's the first day of Dino School, and we're doing roll call. Find the alphabetically first dinosaur, so we can make sure they're present for class.
-
+SELECT name FROM dinos ORDER BY name ASC LIMIT 1;
 
 Rename the five longest dinosaurs The Famous Five.
+UPDATE dinos SET name = 'The Famous Five' WHERE id = ANY (SELECT id FROM dinos ORDER BY length DESC LIMIT 5);
